@@ -1,7 +1,7 @@
 import express from 'express';
 import { collectDefaultMetrics, register } from 'prom-client';
 import { ContractSource } from './sources/contractSource.js';
-// import { VaultMetrics } from './metrics/vaultMetrics.js';
+import { VaultMetrics } from './metrics/vaultMetrics.js';
 import cron from 'node-cron';
 import dotenv from 'dotenv';
 
@@ -21,8 +21,11 @@ dotenv.config();
     contractSource.readGlobalState();
   });
 
-  // const vaultMetrics = new VaultMetrics(contractSource);
-  // vaultMetrics.createAccruedFeesMetric();
+  const vaultMetrics = new VaultMetrics(contractSource);
+  vaultMetrics.createAccruedFeesMetric();
+  vaultMetrics.createCollateralPriceMetric();
+  vaultMetrics.createTotalVaultDebtMetric();
+  vaultMetrics.createAccruedInterestMetric();
 
   app.get('/metrics', async (_req, res) => {
     try {
