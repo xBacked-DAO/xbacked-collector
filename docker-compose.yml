@@ -1,0 +1,25 @@
+version: "3"
+services:
+  collector:
+    build: .
+    env_file:
+      - .env
+    command: npm run start
+    ports:
+      - "${COLLECTOR_PORT}:${COLLECTOR_PORT}"
+
+  agent:
+    image: grafana/agent:latest
+    volumes:
+      - ./agent/config:/etc/agent-config
+    env_file:
+      - .env
+    entrypoint:
+      - /bin/agent
+      - -config.file=/etc/agent-config/agent.yaml
+      - -config.expand-env=true
+      - -metrics.wal-directory=/tmp/grafana-agent-wal
+    ports:
+      - "${AGENT_PORT}:${AGENT_PORT}"
+    depends_on:
+      - collector
