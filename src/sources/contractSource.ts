@@ -20,8 +20,7 @@ export class ContractSource implements source {
     }
   }
 
-  readGlobalState = async () : Promise<VaultReturnParams> => {
-    return this.vault.getState({ account: this.acc });
+  readGlobalState = async () : Promise<void> => {
+    this.lastState = await this.vault.getState({ account: this.acc });
   }
 }
-
