@@ -17,7 +17,7 @@ dotenv.config();
   await contractSource.readGlobalState();
 
   // Obtain state from source every 30 seconds
-  cron.schedule('30 * * * *', function() {
+  cron.schedule('*/30 * * * * *', function() {
     contractSource.readGlobalState();
   });
 
