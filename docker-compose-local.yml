@@ -4,7 +4,6 @@ services:
     build: .
     env_file:
       - .env
-    command: npm run start
     ports:
       - "${COLLECTOR_PORT}:${COLLECTOR_PORT}"
 
@@ -12,13 +11,15 @@ services:
     image: grafana/agent:latest
     volumes:
       - ./agent/config:/etc/agent-config
+    environment:
+      GRAFANA_JOB_NAME: "collector/local-testing"
     env_file:
       - .env
     entrypoint:
       - /bin/agent
+      - -metrics.wal-directory=/tmp/grafana-agent-wal
       - -config.file=/etc/agent-config/agent.yaml
       - -config.expand-env=true
-      - -metrics.wal-directory=/tmp/grafana-agent-wal
     ports:
       - "${AGENT_PORT}:${AGENT_PORT}"
     depends_on:
