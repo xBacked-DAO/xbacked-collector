@@ -9,7 +9,7 @@ logs:
     - clients:
         - basic_auth:
             password: ${GRAFANA_PASS}
-            username: 191769
+            username: ${GRAFANA_LOGS_USER}
           url: https://${GRAFANA_LOGS_HOST}/api/prom/push
       name: integrations
       positions:
@@ -25,7 +25,7 @@ metrics:
             username: ${GRAFANA_PROM_USER}
           url: https://${GRAFANA_PROM_HOST}/api/prom/push
       scrape_configs:
-        - job_name: integrations/nodejs
+        - job_name: ${GRAFANA_JOB_NAME}
           static_configs:
             - targets:
                 - ${COLLECTOR_HOST}
