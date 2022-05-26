@@ -1,10 +1,10 @@
 import { Gauge }  from 'prom-client';
-import { ContractSource } from '../sources/contractSource.js';
+import { VaultContractSource } from '../sources/vaultContractSource.js';
 
 export class VaultMetrics {
-  public source: ContractSource;
+  public source: VaultContractSource;
 
-  constructor(source: ContractSource) {
+  constructor(source: VaultContractSource) {
     this.source = source;
   }
 
@@ -12,52 +12,52 @@ export class VaultMetrics {
     return this.source.lastState;
   }
 
-  createAccruedFeesMetric = () => {
+  createAccruedFeesMetric = (prefix: string) => {
     const getLastStateFromSource = this.getLastStateFromSource;
     return new Gauge({
-      name: 'vault_algo_usd_accrued_fees',
+      name: `${prefix}_accrued_fees`,
       help: 'Total accrued fees in the vault',
       collect() {
         // Invoked when the registry collects its metrics' values.
         // This can be synchronous or it can return a promise/be an async function.
         const state = getLastStateFromSource();
-        this.set(state.accruedFees);
+        this.set(state.coldState.accruedFees);
       },
     });
   }
 
-  createCollateralPriceMetric = () => {
+  createCollateralPriceMetric = (prefix: string) => {
     const getLastStateFromSource = this.getLastStateFromSource;
     return new Gauge({
-      name: 'vault_algo_usd_collateral_price',
+      name: `${prefix}_collateral_price`,
       help: 'Current collateral price in the vault',
       async collect() {
         const state = getLastStateFromSource();
-        this.set(state.collateralPrice);
+        this.set(state.coldState.collateralPrice);
       },
     });
   }
 
-  createTotalVaultDebtMetric = () => {
+  createTotalVaultDebtMetric = (prefix: string) => {
     const getLastStateFromSource = this.getLastStateFromSource;
     return new Gauge({
-      name: 'vault_algo_usd_total_vault_debt',
+      name: `${prefix}_total_vault_debt`,
       help: 'Total vault debt in the vault',
       collect() {
         const state = getLastStateFromSource();
-        this.set(state.totalVaultDebt);
+        this.set(state.hotState.totalVaultDebt);
       },
     });
   }
 
-  createAccruedInterestMetric = () => {
+  createAccruedInterestMetric = (prefix: string) => {
     const getLastStateFromSource = this.getLastStateFromSource;
     return new Gauge({
-      name: 'vault_algo_usd_accrued_interest',
+      name: `${prefix}_accrued_interest`,
       help: 'The accrued interest in a vault awaiting distribution via settleInterest',
       collect() {
         const state = getLastStateFromSource();
-        this.set(state.accruedInterest);
+        this.set(state.hotState.accruedInterest);
       },
     });
   }
