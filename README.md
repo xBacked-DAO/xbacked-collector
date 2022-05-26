@@ -1,14 +1,19 @@
 Make sure you have the `.env` file setup.
 
-# Testing metrics
+# Test the changes
 ```
-$ docker build -t xbacked-collector .
+$ npm run build
+$ npm run start
+```
+Then open [localhost:4001/metrics]() to confirm the metrics values are being set
+
+# Testing metrics locally while pushing to Grafana
+```
+$ docker compose -f docker-compose-local.yml build
 ```
 ```
 $ docker compose -f docker-compose-local.yml up
 ```
-
-
 
 # Deploy to production
 
@@ -25,7 +30,7 @@ $ docker tag xbacked-collector:latest 578642810119.dkr.ecr.us-east-1.amazonaws.c
 ```
 $ docker push 578642810119.dkr.ecr.us-east-1.amazonaws.com/xbacked-collector:latest
 ```
-Create AWS context
+Create AWS context (Only first time)
 ```
 $ docker context create ecs myecscontext
 ```
