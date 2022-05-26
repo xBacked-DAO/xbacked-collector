@@ -34,8 +34,9 @@ Create AWS context (Only first time)
 ```
 $ docker context create ecs myecscontext
 ```
-Deploy or roll update to ECS
+Deploy to ECS
 ```
+$ docker --context myecscontext compose -f docker-compose-prod.yml down
 $ docker --context myecscontext compose -f docker-compose-prod.yml up
 ```
 
