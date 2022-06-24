@@ -19,16 +19,16 @@ $ docker compose -f docker-compose-local.yml up
 
 Build and push the new chages to the image in ECR.
 ```
-$ aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 578642810119.dkr.ecr.us-east-1.amazonaws.com
+$ aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 578642810119.dkr.ecr.us-west-2.amazonaws.com
 ```
 ```
 $ docker build -t xbacked-collector .
 ```
 ```
-$ docker tag xbacked-collector:latest 578642810119.dkr.ecr.us-east-1.amazonaws.com/xbacked-collector:latest
+$ docker tag xbacked-collector:latest 578642810119.dkr.ecr.us-west-2.amazonaws.com/xbacked-collector:latest
 ```
 ```
-$ docker push 578642810119.dkr.ecr.us-east-1.amazonaws.com/xbacked-collector:latest
+$ docker push 578642810119.dkr.ecr.us-west-2.amazonaws.com/xbacked-collector:latest
 ```
 Create AWS context (Only first time)
 ```

@@ -1,7 +1,7 @@
 version: "3"
 services:
   collector:
-    image: 578642810119.dkr.ecr.us-east-1.amazonaws.com/xbacked-collector
+    image: 578642810119.dkr.ecr.us-west-2.amazonaws.com/xbacked-collector
     env_file:
       - .env
     ports:
