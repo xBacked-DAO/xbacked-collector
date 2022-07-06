@@ -1,8 +1,7 @@
 import express from 'express';
 import { collectDefaultMetrics, register } from 'prom-client';
 import { Account, VAULTS as SDKVaults } from '@xbacked-dao/xbacked-sdk';
-import { VaultContractSource } from './sources/vaultContractSource.js';
-import { VaultMetrics } from './metrics/vaultMetrics.js';
+import { VaultMetrics } from './metrics/VaultMetrics';
 import cron from 'node-cron';
 import dotenv from 'dotenv';
 
