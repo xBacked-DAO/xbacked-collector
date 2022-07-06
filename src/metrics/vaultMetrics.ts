@@ -1,5 +1,5 @@
 import { Gauge }  from 'prom-client';
-import { VaultContractSource } from '../sources/vaultContractSource.js';
+import { VaultContractSource } from '../sources/VaultContractSource';
 
 export class VaultMetrics {
   public source: VaultContractSource;
