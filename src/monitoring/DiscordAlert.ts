@@ -6,7 +6,7 @@ interface AlertBody {
   msg: string;
 }
 
-export class ZapierAlert {
+export class DiscordAlert {
 
   private cooldown: number; // In seconds
   private lastSent: moment.Moment;
@@ -19,7 +19,12 @@ export class ZapierAlert {
   send = (alertBody: AlertBody) : void =>  {
     if(!this.lastSent || moment().diff(this.lastSent, 's') >= this.cooldown) {
       console.log(moment().diff(this.lastSent, 's'), this.cooldown);
-      axios.post(process.env.ZAPIER_ALERT_URL, alertBody)
+      const params = {
+        username: "Watson",
+        avatar_url: "https://beta.xbacked.io/android-chrome-192x192.png",
+        content: alertBody.msg,
+      };
+      axios.post(process.env.DISCORD_HOOK_URL, params)
       .then(() => {
         console.log("Alert sent", alertBody);
         this.lastSent = moment();
