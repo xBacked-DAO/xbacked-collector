@@ -2,7 +2,6 @@ Make sure you have the `.env` file setup.
 
 # Test the changes
 ```
-$ npm run build
 $ npm run start
 ```
 Then open [localhost:4001/metrics]() to confirm the metrics values are being set
@@ -36,9 +35,13 @@ $ docker context create ecs myecscontext
 ```
 Deploy to ECS
 ```
-$ docker --context myecscontext compose -f docker-compose-prod.yml down
+To deploy the container or apply rolling update
 $ docker --context myecscontext compose -f docker-compose-prod.yml up
 ```
+Stop the running container
+```
+$ docker --context myecscontext compose -f docker-compose-prod.yml down
+````
 
 > :warning: Note: `docker-compose-prod.yml` points to a public remote location where the grafana agent config is stored. (Ideally in the public repo).
 > While this repo remains private an S3 bucket is used to host a public copy of the config file. (It need to be manually updated if any change is made).
