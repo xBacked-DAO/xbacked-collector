@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { Account } from '@xbacked-dao/xbacked-sdk';
 import { VaultContractSource } from "./VaultContractSource";
-import { ZapierAlert } from '../monitoring/ZapierAlert';
+import { DiscordAlert } from '../monitoring/DiscordAlert';
 
 import dotenv from 'dotenv';
 
@@ -12,9 +12,9 @@ export class VaultContractSourceWithAlerts extends VaultContractSource {
   protected prevCollateralPrice: number;
   protected priceChangeTimestamp: moment.Moment;
 
-  protected vaultReadAlert = new ZapierAlert(parseInt(process.env.ALERT_VAULT_READ_COOLDOWN));
-  protected oracleAlert = new ZapierAlert(parseInt(process.env.ALERT_ORACLE_COOLDOWN));
-  protected redemptionAlert = new ZapierAlert(parseInt(process.env.ALERT_REDEMPTION_COOLDOWN));
+  protected vaultReadAlert = new DiscordAlert(parseInt(process.env.ALERT_VAULT_READ_COOLDOWN));
+  protected oracleAlert = new DiscordAlert(parseInt(process.env.ALERT_ORACLE_COOLDOWN));
+  protected redemptionAlert = new DiscordAlert(parseInt(process.env.ALERT_REDEMPTION_COOLDOWN));
 
   constructor(vaultName: string, acc: Account, vaultId: number, asaDecimals?: number) {
     super(vaultName, acc, vaultId, asaDecimals);

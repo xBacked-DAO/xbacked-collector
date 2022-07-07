@@ -3,7 +3,7 @@ import { Account, VAULTS as SDKVaults } from '@xbacked-dao/xbacked-sdk';
 import { collectDefaultMetrics, register } from 'prom-client';
 import { VaultContractSourceWithAlerts } from './sources/VaultContractSourceWithAlerts';
 import { VaultMetrics } from './metrics/VaultMetrics';
-import { ZapierAlert } from './monitoring/ZapierAlert';
+import { DiscordAlert } from './monitoring/DiscordAlert';
 import cron from 'node-cron';
 import dotenv from 'dotenv';
 
@@ -53,7 +53,7 @@ dotenv.config();
   goEthUsdMetrics.createTotalVaultDebtMetric('vault_goeth_usd');
   goEthUsdMetrics.createAccruedInterestMetric('vault_goeth_usd');
 
-  const grafanaAlert = new ZapierAlert(parseInt(process.env.ALERT_GRAFANA_COOLDOWN));
+  const grafanaAlert = new DiscordAlert(parseInt(process.env.ALERT_GRAFANA_COOLDOWN));
 
   // Create endpoint for the agent to pull the metrics
   app.get('/metrics', async (_req, res) => {
