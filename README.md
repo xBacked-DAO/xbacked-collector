@@ -33,6 +33,10 @@ Create AWS context (Only first time)
 ```
 $ docker context create ecs myecscontext
 ```
+Confirm you are in the correct region
+```
+$ aws configure set default.region us-west-2
+```
 Deploy to ECS
 ```
 To deploy the container or apply rolling update
