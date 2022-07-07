@@ -26,12 +26,14 @@ dotenv.config();
   const algoUsdContract = new VaultContractSourceWithAlerts("ALGO/xUSD", account, SDKVaults.TestNet.algo.vaultId);
   const goBtcUsdContract = new VaultContractSourceWithAlerts("goBTC/xUSD", account, SDKVaults.TestNet.gobtc.vaultId, SDKVaults.TestNet.gobtc.assetDecimals);
   const goEthUsdContract = new VaultContractSourceWithAlerts("goETH/xUSD", account, SDKVaults.TestNet.goeth.vaultId, SDKVaults.TestNet.goeth.assetDecimals);
+  const dAlgoUsdContract = new VaultContractSourceWithAlerts("dALGO/xUSD", account, SDKVaults.TestNet.dAlgo.vaultId, SDKVaults.TestNet.dAlgo.assetDecimals);
 
   // Obtain state from source every 30 seconds
   cron.schedule('*/30 * * * * *', function() {
     algoUsdContract.update();
     goBtcUsdContract.update();
     goEthUsdContract.update();
+    dAlgoUsdContract.update();
   });
 
   // Create metrics for the grafana agent to consume
@@ -52,6 +54,12 @@ dotenv.config();
   goEthUsdMetrics.createCollateralPriceMetric('vault_goeth_usd');
   goEthUsdMetrics.createTotalVaultDebtMetric('vault_goeth_usd');
   goEthUsdMetrics.createAccruedInterestMetric('vault_goeth_usd');
+
+  const dAlgoUsdMetrics = new VaultMetrics(dAlgoUsdContract);
+  dAlgoUsdMetrics.createAccruedFeesMetric('vault_dalgo_usd');
+  dAlgoUsdMetrics.createCollateralPriceMetric('vault_dalgo_usd');
+  dAlgoUsdMetrics.createTotalVaultDebtMetric('vault_dalgo_usd');
+  dAlgoUsdMetrics.createAccruedInterestMetric('vault_dalgo_usd');
 
   const grafanaAlert = new DiscordAlert(parseInt(process.env.ALERT_GRAFANA_COOLDOWN));
 
