@@ -1,15 +1,15 @@
-import { Account, Vault } from '@xbacked-dao/xbacked-sdk';
-import { VaultReturnParams } from '@xbacked-dao/xbacked-sdk/lib/types/interfaces';
+import { getAllAccounts, VaultClient, Vault } from '@xbacked-dao/xbacked-sdk';
+import { VaultReturnParams, ReachUserVault } from '@xbacked-dao/xbacked-sdk/lib/types/interfaces';
 
 export class VaultContractSource {
-  protected vaultName: string;
-  protected acc: Account;
+  public vaultName: string;
+  protected acc: VaultClient;
   protected vault: Vault;
   protected vaultId: number;
-  protected asaDecimals: number;
+  public asaDecimals: number;
   public lastState: VaultReturnParams;
 
-  constructor(vaultName: string, acc: Account, vaultId: number, asaDecimals?: number) {
+  constructor(vaultName: string, acc: VaultClient, vaultId: number, asaDecimals?: number) {
     this.vaultName = vaultName;
     this.acc = acc;
     this.vaultId = vaultId;
@@ -33,5 +33,18 @@ export class VaultContractSource {
 
   update = async (): Promise<void> => {
     this.readGlobalState();
+  }
+
+  getUserVaults = async (indexer: any): Promise<ReachUserVault[]> => {
+    try {
+      const vaultAccounts = await getAllAccounts(this.vaultId, indexer, [], null);
+      const reachUserVaults = [];
+      for (const vaultAccount of vaultAccounts) {
+        reachUserVaults.push(await this.acc.getUserInfo({address: vaultAccount.address, vault: this.vault}));
+      };
+      return reachUserVaults;
+    } catch(err) {
+      throw(`${this.vaultName}: ${err}`);
+    }
   }
 }
