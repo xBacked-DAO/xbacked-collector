@@ -65,7 +65,7 @@ export class Collector {
       this.alert.send({
         username: `TVL Collection`,
         type: `TVL_COLLECTION_SUCCESS`,
-        msg: `✅ Successfully collected TVL`
+        msg: `✅ Successfully collected TVL: $ ${this.tvl.toFixed(4)} USD`
       });
     } catch (err) {
       this.isCollecting = false;
