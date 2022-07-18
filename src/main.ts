@@ -1,9 +1,11 @@
 import express from 'express';
-import { Account, VAULTS as SDKVaults } from '@xbacked-dao/xbacked-sdk';
+import { VaultClient, VAULTS as SDKVaults } from '@xbacked-dao/xbacked-sdk';
 import { collectDefaultMetrics, register } from 'prom-client';
 import { VaultContractSourceWithAlerts } from './sources/VaultContractSourceWithAlerts';
 import { createVaultMetrics } from './metrics';
 import { DiscordAlert } from './monitoring/DiscordAlert';
+import { Collector } from './collector/Collector';
+import { apiRouter } from './api';
 import cron from 'node-cron';
 import dotenv from 'dotenv';
 
@@ -16,7 +18,7 @@ dotenv.config();
   const app = express();
 
   // Initialize an account using the xbacked-sdk
-  const account = new Account({
+  const account = new VaultClient({
     network: process.env.NETWORK as "TestNet" | "MainNet" || "LocalHost",
     mnemonic: process.env.COLLECTOR_MNEMONIC,
   });
@@ -34,11 +36,19 @@ dotenv.config();
   const dAlgoUsdContract = new VaultContractSourceWithAlerts("dALGO/xUSD", account, SDKVaults.TestNet.dAlgo.vaultId, SDKVaults.TestNet.dAlgo.assetDecimals);
   vaultContractSources.push(dAlgoUsdContract);
 
-  // Obtain state from source every 30 seconds
+  const collector = new Collector(vaultContractSources);
+
+  // Obtain state from source every 30 seconds and confirm TVL is collected
   cron.schedule('*/30 * * * * *', function() {
     vaultContractSources.map((source) => {
       source.update();
     });
+    collector.confirmTVLCollection();
+  });
+
+  // Collect TVL every day at midnight and midday
+  cron.schedule('0 0,12 * * *', function() {
+    collector.collectTVL();
   });
 
   // Create metrics for the grafana agent to consume
@@ -66,7 +76,7 @@ dotenv.config();
     }
   });
 
+  app.use('/api/v1', apiRouter(collector.getTVL));
+
   app.listen(Number(process.env.COLLECTOR_PORT), '0.0.0.0');
 })();
-
-

@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Account } from '@xbacked-dao/xbacked-sdk';
+import { VaultClient } from '@xbacked-dao/xbacked-sdk';
 import { VaultContractSource } from "./VaultContractSource";
 import { DiscordAlert } from '../monitoring/DiscordAlert';
 
@@ -16,17 +16,17 @@ export class VaultContractSourceWithAlerts extends VaultContractSource {
   protected oracleAlert = new DiscordAlert(parseInt(process.env.ALERT_ORACLE_COOLDOWN));
   protected redemptionAlert = new DiscordAlert(parseInt(process.env.ALERT_REDEMPTION_COOLDOWN));
 
-  constructor(vaultName: string, acc: Account, vaultId: number, asaDecimals?: number) {
+  constructor(vaultName: string, acc: VaultClient, vaultId: number, asaDecimals?: number) {
     super(vaultName, acc, vaultId, asaDecimals);
   }
 
   update: () => Promise<void> = async () => {
     try{
-      this.readGlobalState();
+      this.lastState = await this.vault.getState({ account: this.acc });
       this.checkPriceChange();
       this.checkProposalTime();
     } catch(err) {
-      console.log(err);
+      console.log(`${this.vaultName}: ${err}`);
       this.vaultReadAlert.send({
         username: `State read alert`,
         type: `VAULT_READ_STATE_FAIL-${this.vaultName}`,
