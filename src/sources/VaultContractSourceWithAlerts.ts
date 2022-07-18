@@ -16,8 +16,8 @@ export class VaultContractSourceWithAlerts extends VaultContractSource {
   protected oracleAlert = new DiscordAlert(parseInt(process.env.ALERT_ORACLE_COOLDOWN));
   protected redemptionAlert = new DiscordAlert(parseInt(process.env.ALERT_REDEMPTION_COOLDOWN));
 
-  constructor(vaultName: string, acc: VaultClient, vaultId: number, asaDecimals?: number) {
-    super(vaultName, acc, vaultId, asaDecimals);
+  constructor(vaultName: string, acc: VaultClient, vaultObj: any) {
+    super(vaultName, acc, vaultObj);
   }
 
   update: () => Promise<void> = async () => {

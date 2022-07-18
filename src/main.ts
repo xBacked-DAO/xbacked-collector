@@ -27,29 +27,25 @@ dotenv.config();
   const vaultContractSources: VaultContractSourceWithAlerts[] = [];
 
   // Initialize an instance of each vault contract to collect the data from
-  const algoUsdContract = new VaultContractSourceWithAlerts("ALGO/xUSD", account, SDKVaults.TestNet.algo.vaultId);
+  const algoUsdContract = new VaultContractSourceWithAlerts("ALGO/xUSD", account, SDKVaults.TestNet.algo);
   vaultContractSources.push(algoUsdContract);
-  const goBtcUsdContract = new VaultContractSourceWithAlerts("goBTC/xUSD", account, SDKVaults.TestNet.gobtc.vaultId, SDKVaults.TestNet.gobtc.assetDecimals);
+  const goBtcUsdContract = new VaultContractSourceWithAlerts("goBTC/xUSD", account, SDKVaults.TestNet.gobtc);
   vaultContractSources.push(goBtcUsdContract);
-  const goEthUsdContract = new VaultContractSourceWithAlerts("goETH/xUSD", account, SDKVaults.TestNet.goeth.vaultId, SDKVaults.TestNet.goeth.assetDecimals);
+  const goEthUsdContract = new VaultContractSourceWithAlerts("goETH/xUSD", account, SDKVaults.TestNet.goeth);
   vaultContractSources.push(goEthUsdContract);
-  const dAlgoUsdContract = new VaultContractSourceWithAlerts("dALGO/xUSD", account, SDKVaults.TestNet.dAlgo.vaultId, SDKVaults.TestNet.dAlgo.assetDecimals);
+  const dAlgoUsdContract = new VaultContractSourceWithAlerts("dALGO/xUSD", account, SDKVaults.TestNet.dAlgo);
   vaultContractSources.push(dAlgoUsdContract);
 
   const collector = new Collector(vaultContractSources);
 
-  // Obtain state from source every 30 seconds and confirm TVL is collected
-  cron.schedule('*/30 * * * * *', function() {
-    vaultContractSources.map((source) => {
+  // Obtain state from source and collect TVL every 60 seconds
+  cron.schedule('*/60 * * * * *', async function() {
+    await Promise.all(vaultContractSources.map((source) => {
       source.update();
-    });
-    collector.confirmTVLCollection();
-  });
-
-  // Collect TVL every day at midnight and midday
-  cron.schedule('0 0,12 * * *', function() {
+    }));
     collector.collectTVL();
   });
+
 
   // Create metrics for the grafana agent to consume
   createVaultMetrics(algoUsdContract, 'vault_algo_usd');

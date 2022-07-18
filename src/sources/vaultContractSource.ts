@@ -1,19 +1,21 @@
-import { getAllAccounts, VaultClient, Vault } from '@xbacked-dao/xbacked-sdk';
-import { VaultReturnParams, ReachUserVault } from '@xbacked-dao/xbacked-sdk/lib/types/interfaces';
+import { VaultClient, Vault, convertFromMicroUnits } from '@xbacked-dao/xbacked-sdk';
+import { VaultReturnParams } from '@xbacked-dao/xbacked-sdk/lib/types/interfaces';
 
 export class VaultContractSource {
   public vaultName: string;
   protected acc: VaultClient;
   protected vault: Vault;
   protected vaultId: number;
+  protected asaId: number;
   public asaDecimals: number;
   public lastState: VaultReturnParams;
 
-  constructor(vaultName: string, acc: VaultClient, vaultId: number, asaDecimals?: number) {
+  constructor(vaultName: string, acc: VaultClient, vaultObj: any) {
     this.vaultName = vaultName;
     this.acc = acc;
-    this.vaultId = vaultId;
-    this.asaDecimals = asaDecimals;
+    this.vaultId = vaultObj.vaultId;
+    this.asaId = vaultObj.assetId || null;
+    this.asaDecimals = vaultObj.assetDecimals || null;
 
     const initParams = this.asaDecimals ?
       { id: this.vaultId, asaVault: { decimals: this.asaDecimals } } :
@@ -35,14 +37,24 @@ export class VaultContractSource {
     this.readGlobalState();
   }
 
-  getUserVaults = async (indexer: any): Promise<ReachUserVault[]> => {
+  getBalance = async (): Promise<number> => {
     try {
-      const vaultAccounts = await getAllAccounts(this.vaultId, indexer, [], null);
-      const reachUserVaults = [];
-      for (const vaultAccount of vaultAccounts) {
-        reachUserVaults.push(await this.acc.getUserInfo({address: vaultAccount.address, vault: this.vault}));
-      };
-      return reachUserVaults;
+      const vaultAddr = await this.acc.getContractAddress({
+        contractId: this.vaultId,
+        backend: this.vault.backend
+      });
+      const collateral = await this.acc.reachStdLib.balanceOf(vaultAddr, this.asaId);
+      return collateral;
+    } catch(err) {
+      throw(`${this.vaultName}: ${err}`);
+    }
+  }
+
+  getLockedCollateralValue = async (): Promise<number> => {
+    try {
+      const collateral = convertFromMicroUnits(await this.getBalance(), this.asaDecimals || 6);
+      const collateralPrice = convertFromMicroUnits(this.lastState.coldState.collateralPrice);
+      return collateral * collateralPrice;
     } catch(err) {
       throw(`${this.vaultName}: ${err}`);
     }
