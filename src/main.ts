@@ -71,6 +71,7 @@ dotenv.config();
     } catch (err) {
       console.log(err);
       grafanaAlert.send({
+        username: `Grafana agent alert`,
         type: "GRAFANA_AGENT_ERROR",
         msg: `Grafana agent failed to retrieve metrics\n`+
         `Verify agent is running in ECS.`,
