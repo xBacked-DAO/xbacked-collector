@@ -17,10 +17,7 @@ services:
       - .env
     entrypoint:
       - /bin/agent
-      - -metrics.wal-directory=/tmp/grafana-agent-wal
       - -config.file=/etc/agent-config/agent.yaml
       - -config.expand-env=true
-    ports:
-      - "${AGENT_PORT}:${AGENT_PORT}"
     depends_on:
       - collector

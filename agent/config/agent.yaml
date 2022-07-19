@@ -1,36 +1,14 @@
-integrations:
-  prometheus_remote_write:
-    - basic_auth:
-        password: ${GRAFANA_PASS}
-        username: ${GRAFANA_PROM_USER}
-      url: https://${GRAFANA_PROM_HOST}/api/prom/push
-logs:
-  configs:
-    - clients:
-        - basic_auth:
-            password: ${GRAFANA_PASS}
-            username: ${GRAFANA_LOGS_USER}
-          url: https://${GRAFANA_LOGS_HOST}/api/prom/push
-      name: integrations
-      positions:
-        filename: /tmp/positions.yaml
-      target_config:
-        sync_period: 10s
 metrics:
-  configs:
-    - name: integrations
-      remote_write:
-        - basic_auth:
-            password: ${GRAFANA_PASS}
-            username: ${GRAFANA_PROM_USER}
-          url: https://${GRAFANA_PROM_HOST}/api/prom/push
-      scrape_configs:
-        - job_name: ${GRAFANA_JOB_NAME}
-          static_configs:
-            - targets:
-                - ${COLLECTOR_HOST}
   global:
     scrape_interval: 60s
-  wal_directory: /tmp/grafana-agent-wal
-server:
-  http_listen_port: ${AGENT_PORT}
+  configs:
+  - name: hosted-prometheus
+    scrape_configs:
+      - job_name: ${GRAFANA_JOB_NAME}
+        static_configs:
+        - targets: [${COLLECTOR_HOST}]
+    remote_write:
+      - url: https://${GRAFANA_PROM_HOST}/api/prom/push
+        basic_auth:
+          username: ${GRAFANA_PROM_USER}
+          password: ${GRAFANA_PASS}
