@@ -18,7 +18,5 @@ services:
       - -enable-features=remote-configs
       - -config.file=https://xbacked-collector-agent-config.s3.amazonaws.com/agent.yaml
       - -config.expand-env=true
-    ports:
-      - "${AGENT_PORT}:${AGENT_PORT}"
     depends_on:
       - collector
