@@ -15,7 +15,6 @@ services:
       - .env
     entrypoint:
       - /bin/agent
-      - -metrics.wal-directory=/tmp/grafana-agent-wal
       - -enable-features=remote-configs
       - -config.file=https://xbacked-collector-agent-config.s3.amazonaws.com/agent.yaml
       - -config.expand-env=true
