@@ -46,7 +46,3 @@ Stop the running container
 ```
 $ docker --context myecscontext compose -f docker-compose-prod.yml down
 ````
-
-> :warning: Note: `docker-compose-prod.yml` points to a public remote location where the grafana agent config is stored. (Ideally in the public repo).
-> While this repo remains private an S3 bucket is used to host a public copy of the config file. (It need to be manually updated if any change is made).
-(`- -config.file=https://xbacked-collector-agent-config.s3.amazonaws.com/agent.yaml`)
