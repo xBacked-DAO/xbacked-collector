@@ -18,6 +18,8 @@ export class DiscordAlert {
 
   // Post alerts using axios to zapier integration
   send = (alertBody: AlertBody) : void =>  {
+    if(process.env.DISABLE_ALERTS) return;
+
     if(!this.lastSent || moment().diff(this.lastSent, 's') >= this.cooldown) {
       const params = {
         username: alertBody.username,
