@@ -2,7 +2,7 @@ import express from 'express';
 import { VaultClient, VAULTS as SDKVaults } from '@xbacked-dao/xbacked-sdk';
 import { collectDefaultMetrics, register } from 'prom-client';
 import { VaultContractSourceWithAlerts } from './sources/VaultContractSourceWithAlerts';
-import { createVaultMetrics } from './metrics';
+import { createVaultMetrics, createTVLMetric } from './metrics';
 import { DiscordAlert } from './monitoring/DiscordAlert';
 import { Collector } from './collector/Collector';
 import { apiRouter } from './api';
@@ -52,6 +52,8 @@ dotenv.config();
   createVaultMetrics(goBtcUsdContract, 'vault_gobtc_usd');
   createVaultMetrics(goEthUsdContract, 'vault_goeth_usd');
   createVaultMetrics(dAlgoUsdContract, 'vault_dAlgo_usd');
+
+  createTVLMetric(collector.getTVL, 'tvl');
 
   const grafanaAlert = new DiscordAlert(parseInt(process.env.ALERT_GRAFANA_COOLDOWN));
 
