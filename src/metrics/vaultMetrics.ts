@@ -21,7 +21,9 @@ export class VaultMetrics {
         // Invoked when the registry collects its metrics' values.
         // This can be synchronous or it can return a promise/be an async function.
         const state = getLastStateFromSource();
-        this.set(state.coldState.accruedFees);
+        if(state) {
+          this.set(state.coldState.accruedFees);
+        }
       },
     });
   }
@@ -33,7 +35,9 @@ export class VaultMetrics {
       help: 'Current collateral price in the vault',
       async collect() {
         const state = getLastStateFromSource();
-        this.set(state.coldState.collateralPrice);
+        if(state) {
+          this.set(state.coldState.collateralPrice);
+        }
       },
     });
   }
@@ -45,7 +49,9 @@ export class VaultMetrics {
       help: 'Total vault debt in the vault',
       collect() {
         const state = getLastStateFromSource();
-        this.set(state.hotState.totalVaultDebt);
+        if(state) {
+          this.set(state.hotState.totalVaultDebt);
+        }
       },
     });
   }
@@ -57,7 +63,9 @@ export class VaultMetrics {
       help: 'The accrued interest in a vault awaiting distribution via settleInterest',
       collect() {
         const state = getLastStateFromSource();
-        this.set(state.hotState.accruedInterest);
+        if(state) {
+          this.set(state.hotState.accruedInterest);
+        }
       },
     });
   }

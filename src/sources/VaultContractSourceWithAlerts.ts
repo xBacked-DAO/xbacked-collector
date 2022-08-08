@@ -22,7 +22,7 @@ export class VaultContractSourceWithAlerts extends VaultContractSource {
 
   update: () => Promise<void> = async () => {
     try{
-      this.lastState = await this.vault.getState({ account: this.acc });
+      await this.readGlobalState();
       this.checkPriceChange();
       this.checkProposalTime();
     } catch(err) {
