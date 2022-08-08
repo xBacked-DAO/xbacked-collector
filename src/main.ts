@@ -29,12 +29,13 @@ dotenv.config();
   // Initialize an instance of each vault contract to collect the data from
   const algoUsdContract = new VaultContractSourceWithAlerts("ALGO/xUSD", account, SDKVaults.TestNet.algo);
   vaultContractSources.push(algoUsdContract);
-  const goBtcUsdContract = new VaultContractSourceWithAlerts("goBTC/xUSD", account, SDKVaults.TestNet.gobtc);
-  vaultContractSources.push(goBtcUsdContract);
-  const goEthUsdContract = new VaultContractSourceWithAlerts("goETH/xUSD", account, SDKVaults.TestNet.goeth);
-  vaultContractSources.push(goEthUsdContract);
-  const dAlgoUsdContract = new VaultContractSourceWithAlerts("dALGO/xUSD", account, SDKVaults.TestNet.dAlgo);
-  vaultContractSources.push(dAlgoUsdContract);
+
+  // const goBtcUsdContract = new VaultContractSourceWithAlerts("goBTC/xUSD", account, SDKVaults.TestNet.gobtc);
+  // vaultContractSources.push(goBtcUsdContract);
+  // const goEthUsdContract = new VaultContractSourceWithAlerts("goETH/xUSD", account, SDKVaults.TestNet.goeth);
+  // vaultContractSources.push(goEthUsdContract);
+  // const dAlgoUsdContract = new VaultContractSourceWithAlerts("dALGO/xUSD", account, SDKVaults.TestNet.dAlgo);
+  // vaultContractSources.push(dAlgoUsdContract);
 
   const collector = new Collector(vaultContractSources);
 
@@ -49,9 +50,9 @@ dotenv.config();
 
   // Create metrics for the grafana agent to consume
   createVaultMetrics(algoUsdContract, 'vault_algo_usd');
-  createVaultMetrics(goBtcUsdContract, 'vault_gobtc_usd');
-  createVaultMetrics(goEthUsdContract, 'vault_goeth_usd');
-  createVaultMetrics(dAlgoUsdContract, 'vault_dAlgo_usd');
+  // createVaultMetrics(goBtcUsdContract, 'vault_gobtc_usd');
+  // createVaultMetrics(goEthUsdContract, 'vault_goeth_usd');
+  // createVaultMetrics(dAlgoUsdContract, 'vault_dAlgo_usd');
 
   createTVLMetric(collector.getTVL, 'tvl');
 
