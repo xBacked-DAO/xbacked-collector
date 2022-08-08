@@ -1,6 +1,9 @@
 Make sure you have the `.env` file setup.
 
 # Test the changes
+
+> Note: You can add `DISABLE_ALERTS=1` to any run command to override the default behavior.
+
 ```
 $ npm run start
 ```
@@ -42,7 +45,12 @@ Deploy to ECS
 To deploy the container or apply rolling update
 $ docker --context myecscontext compose -f docker-compose-prod.yml up
 ```
-Stop the running container
+Done.
+
+---
+Other commands:
+
+To Stop the running container
 ```
 $ docker --context myecscontext compose -f docker-compose-prod.yml down
 ````
