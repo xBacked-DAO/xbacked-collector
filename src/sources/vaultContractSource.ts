@@ -26,15 +26,18 @@ export class VaultContractSource {
   }
 
   readGlobalState = async () : Promise<void> => {
-    try {
-      this.lastState = await this.vault.getState({ account: this.acc });
-    } catch(err) {
-      console.log(`${this.vaultName}: ${err}`);
+    const state = await this.vault.getState({ account: this.acc });
+    if (state) {
+      this.lastState = state;
     }
   }
 
   update = async (): Promise<void> => {
-    this.readGlobalState();
+    try {
+      this.readGlobalState();
+    } catch(err) {
+      console.log(`${this.vaultName}: ${err}`);
+    }
   }
 
   getBalance = async (): Promise<number> => {
