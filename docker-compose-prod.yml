@@ -16,7 +16,7 @@ services:
     entrypoint:
       - /bin/agent
       - -enable-features=remote-configs
-      - -config.file=https://github.com/xBacked-DAO/xbacked-collector/blob/dd90eee12f7e7a07d99c9ed29a84f07fef5c9fae/agent/config/agent.yaml
+      - -config.file=https://raw.githubusercontent.com/xBacked-DAO/xbacked-collector/dd90eee12f7e7a07d99c9ed29a84f07fef5c9fae/agent/config/agent.yaml
       - -config.expand-env=true
     ports:
       - 12345:12345
