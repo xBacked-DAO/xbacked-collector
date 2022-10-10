@@ -1,5 +1,11 @@
 import express from 'express';
-import { VaultClient, VAULTS as SDKVaults } from '@xbacked-dao/xbacked-sdk';
+import {
+  VaultClient,
+  VAULTS as SDKVaults,
+  decryptAssumingRole,
+  STSParams,
+  AssumeRoleSpec,
+} from '@xbacked-dao/xbacked-sdk';
 import { collectDefaultMetrics, register } from 'prom-client';
 import { VaultContractSourceWithAlerts } from './sources/VaultContractSourceWithAlerts';
 import { createVaultMetrics, createTVLMetric } from './metrics';
@@ -8,6 +14,7 @@ import { Collector } from './collector/Collector';
 import { apiRouter } from './api';
 import cron from 'node-cron';
 import dotenv from 'dotenv';
+import console from 'console';
 
 dotenv.config();
 
@@ -17,10 +24,22 @@ dotenv.config();
 
   const app = express();
 
+  const stsParams: STSParams = {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION
+  };
+  const assumeRoleSpec: AssumeRoleSpec = {
+    RoleArn: process.env.AWS_ROLE_ARN,
+    RoleSessionName: "xbacked-collector-session"
+  };
+  const buffer = Buffer.from(process.env.ENCRYPTED_PASSPHRASE, 'base64');
+  const passphrase = await decryptAssumingRole(buffer, stsParams, assumeRoleSpec);
+
   // Initialize an account using the xbacked-sdk
   const account = new VaultClient({
     network: process.env.NETWORK as "TestNet" | "MainNet" || "LocalHost",
-    mnemonic: process.env.COLLECTOR_MNEMONIC,
+    mnemonic: passphrase
   });
   await account.initialiseReachAccount();
 
