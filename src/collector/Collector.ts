@@ -8,7 +8,7 @@ dotenv.config();
 
 export class Collector {
   private sources: VaultContractSource[];
-  private tvl: number;
+  private tvl = 0;
   private isCollecting = false;
   private alert: DiscordAlert;
 
@@ -18,7 +18,7 @@ export class Collector {
   }
 
   public getTVL = (): number => {
-    if (!this.tvl)  {
+    if (this.tvl === undefined)  {
       throw new Error("TVL is not set");
     }
     return this.tvl;
@@ -32,7 +32,7 @@ export class Collector {
     try {
       console.log(`Started TVL collection at ${moment().format("HH:mm:ss Z")}`);
       for (const vaultContractSource of this.sources) {
-        console.log("Collecting for", vaultContractSource.vaultName);
+        console.log("Collecting for", vaultContractSource.vaultName, "on", process.env.NETWORK);
         tvl += await vaultContractSource.getLockedCollateralValue();
       };
       this.tvl = tvl;

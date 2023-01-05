@@ -12,7 +12,7 @@ services:
     volumes:
       - ./agent/config:/etc/agent-config
     environment:
-      GRAFANA_JOB_NAME: "collector/local-testing"
+      GRAFANA_JOB_NAME: "local/${NETWORK}"
     env_file:
       - .env
     entrypoint:

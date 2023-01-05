@@ -45,15 +45,17 @@ dotenv.config();
 
   const vaultContractSources: VaultContractSourceWithAlerts[] = [];
 
+  const deployedVaults = SDKVaults[process.env.NETWORK];
+
   // Initialize an instance of each vault contract to collect the data from
-  const algoUsdContract = new VaultContractSourceWithAlerts("ALGO/xUSD", account, SDKVaults.TestNet.algo);
+  const algoUsdContract = new VaultContractSourceWithAlerts("ALGO/xUSD", account, deployedVaults ? deployedVaults.algo : 0);
   vaultContractSources.push(algoUsdContract);
 
-  // const goBtcUsdContract = new VaultContractSourceWithAlerts("goBTC/xUSD", account, SDKVaults.TestNet.gobtc);
+  // const goBtcUsdContract = new VaultContractSourceWithAlerts("goBTC/xUSD", account, deployedVaults ? deployedVaults.gobtc : 0);
   // vaultContractSources.push(goBtcUsdContract);
-  // const goEthUsdContract = new VaultContractSourceWithAlerts("goETH/xUSD", account, SDKVaults.TestNet.goeth);
+  // const goEthUsdContract = new VaultContractSourceWithAlerts("goETH/xUSD", account, deployedVaults ? deployedVaults.goeth : 0);
   // vaultContractSources.push(goEthUsdContract);
-  // const dAlgoUsdContract = new VaultContractSourceWithAlerts("dALGO/xUSD", account, SDKVaults.TestNet.dAlgo);
+  // const dAlgoUsdContract = new VaultContractSourceWithAlerts("dALGO/xUSD", account, deployedVaults ? deployedVaults.dalgo : 0);
   // vaultContractSources.push(dAlgoUsdContract);
 
   const collector = new Collector(vaultContractSources);
