@@ -19,26 +19,13 @@ $ docker compose -f docker-compose-local.yml up
 
 # Deploy to production
 
-Build and push the new chages to the image in ECR. (Get credentials from IAM section on AWS).
-```
-$ aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin $AWS_LOGIN_URL
-```
-```
-$ docker build -t xbacked-collector .
-```
-> Note: Re building is not necessary if only the `.env` is changed.
+Configure the AWS URL `export AWS_LOGIN_URL=[AWS-LOGIN-URL]` and the .env file. (All configuration is grabbed from there).
 
-```
-$ docker tag xbacked-collector:latest $AWS_LOGIN_URL/xbacked-collector:latest
-```
-```
-$ docker push $AWS_LOGIN_URL/xbacked-collector:latest
-```
 Create AWS context (Only first time)
 ```
 $ docker context create ecs myecscontext
 ```
-If the previous command is failig with `docker context create" requires exactly 1 argument`, install docker compose cli
+If the previous command is failing with `docker context create" requires exactly 1 argument`, install docker compose cli
 ```
 $ curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
 ```
@@ -46,10 +33,13 @@ Confirm you are in the correct region
 ```
 $ aws configure set default.region us-west-2
 ```
-Deploy to ECS
+Build and push the image to AWS ECR
+```
+$ yarn aws:prepare
 ```
 To deploy the container or apply rolling update depending the network specified on `.env` (TestNet or MainNet)
-$ NW_NAME=[mainnet|testnet] && docker --context myecscontext compose -f docker-compose-prod.yml --project-name xbacked-collector-$NW_NAME up
+```
+$ yarn aws:deploy:mainnet or yarn aws:deploy:testnet
 ```
 Done.
 

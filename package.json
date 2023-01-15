@@ -19,7 +19,15 @@
     "build:release": "npm run clean && tsc -p tsconfig.release.json",
     "lint": "eslint . --ext .ts",
     "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "build:docker": "docker build -t xbacked-collector .",
+    "aws:login": "aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin $AWS_LOGIN_URL",
+    "aws:tag-image": "docker tag xbacked-collector:latest $AWS_LOGIN_URL/xbacked-collector:latest",
+    "aws:push-image": "docker push $AWS_LOGIN_URL/xbacked-collector:latest",
+    "aws:prepare": "yarn build:docker && yarn aws:login && yarn aws:tag-image && yarn aws:push-image",
+    "aws:deploy:mainnet": "NW_NAME=mainnet && yarn aws:deploy",
+    "aws:deploy:testnet": "NW_NAME=testnet && yarn aws:deploy",
+    "aws:deploy": "docker --context myecscontext compose -f docker-compose-prod.yml --project-name xbacked-collector-$NW_NAME up"
   },
   "author": "xBacked DAO",
   "license": "ISC",
