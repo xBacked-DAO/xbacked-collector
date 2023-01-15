@@ -1,0 +1,27 @@
+version: "3"
+services:
+  collector:
+    image: ${AWS_LOGIN_URL}/xbacked-collector:latest
+    env_file:
+      - .env
+    ports:
+      - "${COLLECTOR_PORT}:${COLLECTOR_PORT}"
+
+  agent:
+    image: grafana/agent:latest
+    environment:
+      GRAFANA_JOB_NAME: "prod/${NETWORK}"
+    env_file:
+      - .env
+    entrypoint:
+      - /bin/agent
+      - -enable-features=remote-configs
+      - -config.file=https://raw.githubusercontent.com/xBacked-DAO/xbacked-collector/dd90eee12f7e7a07d99c9ed29a84f07fef5c9fae/agent/config/agent.yaml
+      - -config.expand-env=true
+    ports:
+      - 12345:12345
+    depends_on:
+      - collector
+
+x-aws-vpc: "${AWS_VPC}"
+x-aws-loadbalancer: "${AWS_LOADBALANCER}"
