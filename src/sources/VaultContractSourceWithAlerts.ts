@@ -28,7 +28,7 @@ export class VaultContractSourceWithAlerts extends VaultContractSource {
     } catch(err) {
       console.log(`${this.vaultName}: ${err}`);
       this.vaultReadAlert.send({
-        username: `State read alert`,
+        username: `State read alert | ${process.env.NETWORK}`,
         type: `VAULT_READ_STATE_FAIL-${this.vaultName}`,
         msg: `🚨 Collector failed to retrieve vault state for **${this.vaultName}**\n` +
           `\`\`\`Error: ${err}\`\`\``,
@@ -45,7 +45,7 @@ export class VaultContractSourceWithAlerts extends VaultContractSource {
     const timeUnchanged = moment().diff(this.priceChangeTimestamp, 's');
     if(timeUnchanged >= parseInt(process.env.ALERT_ORACLE_THRESHOLD)) {
       this.oracleAlert.send({
-        username: `Oracle alert`,
+        username: `Oracle alert | ${process.env.NETWORK}`,
         type: `ORACLE_PRICE_UNCHANGED-${this.vaultName}`,
         msg: `🚨 Oracle price has not changed in ${Math.round(timeUnchanged/60)} minutes for **${this.vaultName}**\n` +
         `Is the Oracle running?`
@@ -58,7 +58,7 @@ export class VaultContractSourceWithAlerts extends VaultContractSource {
     const timeWithoutProposal = moment().diff(lastTimeProposed, 's');
     if(timeWithoutProposal >= parseInt(process.env.ALERT_REDEMPTION_THRESHOLD)) {
       this.redemptionAlert.send({
-        username: `Keepers alert`,
+        username: `Keepers alert | ${process.env.NETWORK}`,
         type: `KEEPERS_NOT_PROPOSING-${this.vaultName}`,
         msg: `🚨 Redemption address has not been proposed since `+
           `${lastTimeProposed.format('YYYY-MM-DD HH:mm Z')} for **${this.vaultName}**\n` +

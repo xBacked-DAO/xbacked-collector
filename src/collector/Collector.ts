@@ -43,7 +43,7 @@ export class Collector {
       this.isCollecting = false;
       console.log(err);
       this.alert.send({
-        username: `TVL Collection Error`,
+        username: `TVL Collection Error | ${process.env.NETWORK}`,
         type: `TVL_COLLECTION_FAIL`,
         msg: `🚨 Collector failed to collect TVL\n` +
           `\`\`\`Error: ${err}\`\`\``,
