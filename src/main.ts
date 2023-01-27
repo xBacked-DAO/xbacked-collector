@@ -15,6 +15,7 @@ import { apiRouter } from './api';
 import cron from 'node-cron';
 import dotenv from 'dotenv';
 import console from 'console';
+import { cleanEnv } from './utils/cleanEnv';
 
 dotenv.config();
 
@@ -99,4 +100,13 @@ dotenv.config();
   app.use('/api/v1', apiRouter(collector.getTVL));
 
   app.listen(Number(process.env.COLLECTOR_PORT), '0.0.0.0');
+
+  console.log(cleanEnv(process.env));
+  const deploymentAlert = new DiscordAlert();
+  deploymentAlert.send({
+    username: `Collector deployment | ${process.env.NETWORK}`,
+    type: "COLLECTOR_DEPLOYMENT",
+    msg: `New instance of xbacked-collector has been deployed with env (alerts in seconds)\n`+
+    `\`\`\`${JSON.stringify(cleanEnv(process.env))}\`\`\``,
+  });
 })();
