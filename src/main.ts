@@ -106,7 +106,7 @@ dotenv.config();
   deploymentAlert.send({
     username: `Collector deployment | ${process.env.NETWORK}`,
     type: "COLLECTOR_DEPLOYMENT",
-    msg: `New instance of xbacked-collector has been deployed with env (alerts in seconds)\n`+
-    `\`\`\`${JSON.stringify(cleanEnv(process.env))}\`\`\``,
+    msg: `New instance of xbacked-collector has been deployed with env: (alerts in seconds)\n`+
+    `\`\`\`${JSON.stringify(cleanEnv(process.env), null, 2)}\`\`\``,
   });
 })();
