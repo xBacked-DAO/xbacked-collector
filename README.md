@@ -21,7 +21,7 @@ $ docker compose -f docker-compose-local.yml up
 
 Configure the AWS URL `export AWS_LOGIN_URL=[AWS-LOGIN-URL]` and the .env file. (All configuration is grabbed from there).
 
-Create AWS context (Only first time)
+Create AWS context **(Only first time)**
 ```
 $ docker context create ecs myecscontext
 ```
