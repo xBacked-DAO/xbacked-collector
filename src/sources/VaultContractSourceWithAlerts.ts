@@ -65,8 +65,7 @@ export class VaultContractSourceWithAlerts extends VaultContractSource {
       this.oracleAlert.send({
         username: `Oracle alert | ${process.env.NETWORK}`,
         type: `ORACLE_PRICE_UNCHANGED-${this.vaultName}`,
-        msg: `🚨 Oracle price has not changed in ${Math.round(timeUnchanged/60)} minutes for **${this.vaultName}**\n` +
-        `Is the Oracle running?`
+        msg: `🚨 Oracle price has not changed in ${Math.round(timeUnchanged/60)} minutes for **${this.vaultName}**`
       });
     }
   }
@@ -79,8 +78,7 @@ export class VaultContractSourceWithAlerts extends VaultContractSource {
         username: `Keepers alert | ${process.env.NETWORK}`,
         type: `KEEPERS_NOT_PROPOSING-${this.vaultName}`,
         msg: `🚨 Redemption address has not been proposed since `+
-          `${lastTimeProposed.format('YYYY-MM-DD HH:mm Z')} for **${this.vaultName}**\n` +
-          `Are the keepers running?`
+          `${lastTimeProposed.format('YYYY-MM-DD HH:mm Z')} for **${this.vaultName}**`
       });
     }
   }
