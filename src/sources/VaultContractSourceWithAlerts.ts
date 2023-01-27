@@ -14,6 +14,7 @@ export class VaultContractSourceWithAlerts extends VaultContractSource {
 
   protected vaultReadAlert = new DiscordAlert(parseInt(process.env.ALERT_VAULT_READ_COOLDOWN));
   protected oracleAlert = new DiscordAlert(parseInt(process.env.ALERT_ORACLE_COOLDOWN));
+  protected oracleBalanceAlert = new DiscordAlert(parseInt(process.env.ALERT_ORACLE_BALANCE_COOLDOWN));
   protected redemptionAlert = new DiscordAlert(parseInt(process.env.ALERT_REDEMPTION_COOLDOWN));
 
   constructor(vaultName: string, acc: VaultClient, vaultObj: any) {
@@ -24,6 +25,7 @@ export class VaultContractSourceWithAlerts extends VaultContractSource {
     try{
       await this.readGlobalState();
       this.checkPriceChange();
+      this.checkOracleBalance();
       this.checkProposalTime();
     } catch(err) {
       console.log(`${this.vaultName}: ${err}`);
@@ -33,6 +35,22 @@ export class VaultContractSourceWithAlerts extends VaultContractSource {
         msg: `🚨 Collector failed to retrieve vault state for **${this.vaultName}**\n` +
           `\`\`\`Error: ${err}\`\`\``,
       });
+    }
+  }
+
+  checkOracleBalance = async () : Promise<void> => {
+    try {
+      const stdlib = this.acc.reachStdLib
+      const algoBalance = stdlib.formatCurrency(await stdlib.balanceOf(this.lastState.addresses.oracleAddress));
+      if (algoBalance < process.env.LOW_ORACLE_BALANCE) {
+        this.oracleAlert.send({
+          username: `Low Oracle balance alert | ${process.env.NETWORK}`,
+          type: `ORACLE_BALANCE_LOW-${this.vaultName}`,
+          msg: `🚨 Oracle balance is **${algoBalance} Algo** for **${this.vaultName}**`
+        });
+      }
+    } catch (err) {
+      console.log(`Oracle Balance ${this.vaultName}: ${err}`);
     }
   }
 

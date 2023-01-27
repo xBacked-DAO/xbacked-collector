@@ -12,7 +12,7 @@ export class DiscordAlert {
   private cooldown: number; // In seconds
   private lastSent: moment.Moment;
 
-  constructor(cooldown: number = 60) {
+  constructor(cooldown = 60) {
     this.cooldown = cooldown;
   }
 
