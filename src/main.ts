@@ -52,6 +52,9 @@ dotenv.config();
   const algoUsdContract = new VaultContractSourceWithAlerts("ALGO/xUSD", account, deployedVaults ? deployedVaults.algo : 0);
   vaultContractSources.push(algoUsdContract);
 
+  const gAlgoUsdContract = new VaultContractSourceWithAlerts("gAlgo/xUSD", account, deployedVaults ? deployedVaults.gAlgo : 0);
+  vaultContractSources.push(gAlgoUsdContract);
+
   // const goBtcUsdContract = new VaultContractSourceWithAlerts("goBTC/xUSD", account, deployedVaults ? deployedVaults.gobtc : 0);
   // vaultContractSources.push(goBtcUsdContract);
   // const goEthUsdContract = new VaultContractSourceWithAlerts("goETH/xUSD", account, deployedVaults ? deployedVaults.goeth : 0);
@@ -72,6 +75,7 @@ dotenv.config();
 
   // Create metrics for the grafana agent to consume
   createVaultMetrics(algoUsdContract, 'vault_algo_usd');
+  createVaultMetrics(gAlgoUsdContract, 'vault_galgo_usd');
   // createVaultMetrics(goBtcUsdContract, 'vault_gobtc_usd');
   // createVaultMetrics(goEthUsdContract, 'vault_goeth_usd');
   // createVaultMetrics(dAlgoUsdContract, 'vault_dAlgo_usd');
