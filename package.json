@@ -1,6 +1,6 @@
 {
   "name": "@xbacked-dao/xbacked-collector",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "publishConfig": {
     "access": "public"
   },
@@ -48,7 +48,7 @@
     "typescript": "~4.6"
   },
   "dependencies": {
-    "@xbacked-dao/xbacked-sdk": "1.0.2",
+    "@xbacked-dao/xbacked-sdk": "https://github.com//xBacked-DAO/xbacked-sdk.git#c775685e28092d9120e1804289599ebb1ada03af",
     "algosdk": "^1.15.0",
     "axios": "^0.27.2",
     "dotenv": "^16.0.0",
@@ -59,5 +59,5 @@
     "ts-node": "^10.8.2",
     "tslib": "^2.3.1"
   },
-  "packageManager": "yarn@3.1.0"
+  "packageManager": "yarn@3.3.0"
 }

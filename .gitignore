@@ -18,6 +18,10 @@ build/
 .vscode
 !.vscode/tasks.js
 
+.yarn/cache
+.yarn/*.gz
+!.yarn/releases/*
+
 # JetBrains IDEs
 .idea/
 
