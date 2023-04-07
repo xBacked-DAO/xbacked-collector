@@ -18,6 +18,7 @@ services:
       - -enable-features=remote-configs
       - -config.file=https://raw.githubusercontent.com/xBacked-DAO/xbacked-collector/dd90eee12f7e7a07d99c9ed29a84f07fef5c9fae/agent/config/agent.yaml
       - -config.expand-env=true
+      - -server.http.address=0.0.0.0:12345
     ports:
       - 12345:12345
     depends_on:

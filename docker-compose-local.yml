@@ -19,6 +19,7 @@ services:
       - /bin/agent
       - -config.file=/etc/agent-config/agent.yaml
       - -config.expand-env=true
+      - -server.http.address=0.0.0.0:12345
     ports:
       - 12345:12345
     depends_on:
