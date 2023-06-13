@@ -9,16 +9,18 @@ export class VaultContractSource {
   protected asaId: number;
   public asaDecimals: number;
   public lastState: VaultReturnParams;
+  protected z_p_f_vault_asa: boolean
 
-  constructor(vaultName: string, acc: VaultClient, vaultObj: any) {
+  constructor(vaultName: string, acc: VaultClient, vaultObj: any, z_p_f_vault_asa:boolean = false) {
     this.vaultName = vaultName;
     this.acc = acc;
     this.vaultId = vaultObj.vaultId;
     this.asaId = vaultObj.assetId || null;
     this.asaDecimals = vaultObj.assetDecimals || null;
+    this.z_p_f_vault_asa = z_p_f_vault_asa;
 
     const initParams = this.asaDecimals ?
-      { id: this.vaultId, asaVault: { decimals: this.asaDecimals } } :
+      { id: this.vaultId, asaVault: { decimals: this.asaDecimals, z_p_f_vault_asa:  this.z_p_f_vault_asa} } :
       { id: this.vaultId };
 
     this.vault = new Vault(initParams);

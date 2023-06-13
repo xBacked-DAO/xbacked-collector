@@ -28,19 +28,23 @@ dotenv.config();
   const stsParams: STSParams = {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION
+    region: process.env.AWS_REGION,
   };
   const assumeRoleSpec: AssumeRoleSpec = {
     RoleArn: process.env.AWS_ROLE_ARN,
-    RoleSessionName: "xbacked-collector-session"
+    RoleSessionName: 'xbacked-collector-session',
   };
   const buffer = Buffer.from(process.env.ENCRYPTED_PASSPHRASE, 'base64');
-  const passphrase = await decryptAssumingRole(buffer, stsParams, assumeRoleSpec);
+  const passphrase = await decryptAssumingRole(
+    buffer,
+    stsParams,
+    assumeRoleSpec,
+  );
 
   // Initialize an account using the xbacked-sdk
   const account = new VaultClient({
-    network: process.env.NETWORK as "TestNet" | "MainNet" || "LocalHost",
-    mnemonic: passphrase
+    network: (process.env.NETWORK as 'TestNet' | 'MainNet') || 'LocalHost',
+    mnemonic: passphrase,
   });
   await account.initialiseReachAccount();
 
@@ -49,12 +53,29 @@ dotenv.config();
   const deployedVaults = SDKVaults[process.env.NETWORK];
 
   // Initialize an instance of each vault contract to collect the data from
-  const algoUsdContract = new VaultContractSourceWithAlerts("ALGO/xUSD", account, deployedVaults ? deployedVaults.algo : 0);
+  const algoUsdContract = new VaultContractSourceWithAlerts(
+    'ALGO/xUSD',
+    account,
+    deployedVaults ? deployedVaults.algo : 0,
+  );
   vaultContractSources.push(algoUsdContract);
 
-  const gAlgoUsdContract = new VaultContractSourceWithAlerts("gAlgo/xUSD", account, deployedVaults ? deployedVaults.gAlgo : 0);
+  const gAlgoUsdContract = new VaultContractSourceWithAlerts(
+    'gAlgo/xUSD',
+    account,
+    deployedVaults ? deployedVaults.gAlgo : 0,
+  );
   vaultContractSources.push(gAlgoUsdContract);
 
+  const gold$UsdContract = new VaultContractSourceWithAlerts("gold$/xUSD", account, deployedVaults ? deployedVaults.meldGold : 0, true);
+  vaultContractSources.push(gold$UsdContract);
+  const silver$UsdContract = new VaultContractSourceWithAlerts(
+    'silver$/xUSD',
+    account,
+    deployedVaults ? deployedVaults.silver$ : 0,
+    true
+  );
+  vaultContractSources.push(silver$UsdContract);
   // const goBtcUsdContract = new VaultContractSourceWithAlerts("goBTC/xUSD", account, deployedVaults ? deployedVaults.gobtc : 0);
   // vaultContractSources.push(goBtcUsdContract);
   // const goEthUsdContract = new VaultContractSourceWithAlerts("goETH/xUSD", account, deployedVaults ? deployedVaults.goeth : 0);
@@ -65,24 +86,29 @@ dotenv.config();
   const collector = new Collector(vaultContractSources);
 
   // Obtain state from source and collect TVL every 60 seconds
-  cron.schedule('*/60 * * * * *', async function() {
-    await Promise.all(vaultContractSources.map((source) => {
-      source.update();
-    }));
+  cron.schedule('*/60 * * * * *', async function () {
+    await Promise.all(
+      vaultContractSources.map((source) => {
+        source.update();
+      }),
+    );
     collector.collectTVL();
   });
-
 
   // Create metrics for the grafana agent to consume
   createVaultMetrics(algoUsdContract, 'vault_algo_usd');
   createVaultMetrics(gAlgoUsdContract, 'vault_galgo_usd');
+  createVaultMetrics(gold$UsdContract, 'vault_gold_dollar_usd');
+  createVaultMetrics(silver$UsdContract, 'vault_silver_dollar_usd');
   // createVaultMetrics(goBtcUsdContract, 'vault_gobtc_usd');
   // createVaultMetrics(goEthUsdContract, 'vault_goeth_usd');
   // createVaultMetrics(dAlgoUsdContract, 'vault_dAlgo_usd');
 
   createTVLMetric(collector.getTVL, 'tvl');
 
-  const grafanaAlert = new DiscordAlert(parseInt(process.env.ALERT_GRAFANA_COOLDOWN));
+  const grafanaAlert = new DiscordAlert(
+    parseInt(process.env.ALERT_GRAFANA_COOLDOWN),
+  );
 
   // Create endpoint for the agent to pull the metrics
   app.get('/metrics', async (_req, res) => {
@@ -93,9 +119,10 @@ dotenv.config();
       console.log(err);
       grafanaAlert.send({
         username: `Grafana agent alert | ${process.env.NETWORK}`,
-        type: "GRAFANA_AGENT_ERROR",
-        msg: `Grafana agent failed to retrieve metrics\n`+
-        `Verify agent is running in ECS.`,
+        type: 'GRAFANA_AGENT_ERROR',
+        msg:
+          `Grafana agent failed to retrieve metrics\n` +
+          `Verify agent is running in ECS.`,
       });
       res.status(500).end(err);
     }
@@ -109,8 +136,9 @@ dotenv.config();
   const deploymentAlert = new DiscordAlert();
   deploymentAlert.send({
     username: `Collector deployment | ${process.env.NETWORK}`,
-    type: "COLLECTOR_DEPLOYMENT",
-    msg: `New instance of xbacked-collector has been deployed with env: (alerts in seconds)\n`+
-    `\`\`\`${JSON.stringify(cleanEnv(process.env), null, 2)}\`\`\``,
+    type: 'COLLECTOR_DEPLOYMENT',
+    msg:
+      `New instance of xbacked-collector has been deployed with env: (alerts in seconds)\n` +
+      `\`\`\`${JSON.stringify(cleanEnv(process.env), null, 2)}\`\`\``,
   });
 })();
