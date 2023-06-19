@@ -116,8 +116,8 @@ dotenv.config();
   createVaultMetrics(gAlgoUsdContract, 'vault_galgo_usd');
   createVaultMetrics(gold$UsdContract, 'vault_gold_dollar_usd');
   createVaultMetrics(silver$UsdContract, 'vault_silver_dollar_usd');
-  // createVaultMetrics(goBtcUsdContract, 'vault_gobtc_usd');
-  // createVaultMetrics(goEthUsdContract, 'vault_goeth_usd');
+  createVaultMetrics(goBtcUsdContract, 'vault_gobtc_usd');
+  createVaultMetrics(goEthUsdContract, 'vault_goeth_usd');
   // createVaultMetrics(dAlgoUsdContract, 'vault_dAlgo_usd');
 
   createTVLMetric(collector.getTVL, 'tvl');
