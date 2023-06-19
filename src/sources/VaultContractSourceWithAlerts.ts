@@ -28,9 +28,10 @@ export class VaultContractSourceWithAlerts extends VaultContractSource {
     vaultName: string,
     acc: VaultClient,
     vaultObj: any,
-    z_p_f_vault_asa: boolean = false,
+    z_p_f_vault_asa = false,
+    large_cp_vault_asa = false,
   ) {
-    super(vaultName, acc, vaultObj, z_p_f_vault_asa);
+    super(vaultName, acc, vaultObj, z_p_f_vault_asa, large_cp_vault_asa);
   }
 
   update: () => Promise<void> = async () => {

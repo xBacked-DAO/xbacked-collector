@@ -69,6 +69,7 @@ dotenv.config();
 
   const gold$UsdContract = new VaultContractSourceWithAlerts("gold$/xUSD", account, deployedVaults ? deployedVaults.meldGold : 0, true);
   vaultContractSources.push(gold$UsdContract);
+
   const silver$UsdContract = new VaultContractSourceWithAlerts(
     'silver$/xUSD',
     account,
@@ -76,6 +77,21 @@ dotenv.config();
     true
   );
   vaultContractSources.push(silver$UsdContract);
+
+
+  const goBtcUsdContract = new VaultContractSourceWithAlerts('goBTC/xUSD', account, deployedVaults ? deployedVaults.goBtc: 0, false, true);
+  vaultContractSources.push(goBtcUsdContract);
+
+  const goEthUsdContract = new VaultContractSourceWithAlerts(
+    'goETH/xUSD',
+    account,
+    deployedVaults ? deployedVaults.goEth : 0,
+    false,
+    true,
+  );
+  vaultContractSources.push(goEthUsdContract);
+
+
   // const goBtcUsdContract = new VaultContractSourceWithAlerts("goBTC/xUSD", account, deployedVaults ? deployedVaults.gobtc : 0);
   // vaultContractSources.push(goBtcUsdContract);
   // const goEthUsdContract = new VaultContractSourceWithAlerts("goETH/xUSD", account, deployedVaults ? deployedVaults.goeth : 0);

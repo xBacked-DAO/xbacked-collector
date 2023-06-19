@@ -1209,6 +1209,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@reach-sh/stdlib@npm:0.1.13-rc.0":
+  version: 0.1.13-rc.0
+  resolution: "@reach-sh/stdlib@npm:0.1.13-rc.0"
+  dependencies:
+    algosdk: ^1.23.2
+    await-timeout: ^0.6.0
+    ethers: ^5.7.2
+    express: ^4.17.3
+    hi-base32: ^0.5.1
+    jsbi: ^3.1.6
+    node-fetch: ^2.6.1
+    superagent: ^8.0.3
+    tslib: ^2.3.1
+    url-parse: ^1.5.10
+    wait-port: ^0.2.9
+  checksum: 2e83bbfa3e33add57dd785a06a442ca6003e6da77afc82ce3bedd97cfe2ce8a2dbb64804c232e83a3ac0f07fb5fb7ff943c13304ce6579853cdc08187deae341
+  languageName: node
+  linkType: hard
+
 "@reach-sh/stdlib@npm:0.1.13-rc.3":
   version: 0.1.13-rc.3
   resolution: "@reach-sh/stdlib@npm:0.1.13-rc.3"
@@ -1726,7 +1745,7 @@ __metadata:
     "@types/node-cron": ^3.0.1
     "@typescript-eslint/eslint-plugin": ~5.14
     "@typescript-eslint/parser": ~5.14
-    "@xbacked-dao/xbacked-sdk": "https://github.com//xBacked-DAO/xbacked-sdk.git#f58b3620aa1e0ad2d254cb2587bfcf8d41074bc7"
+    "@xbacked-dao/xbacked-sdk": "https://github.com//xBacked-DAO/xbacked-sdk.git#b0480ebd425cc1cb91b337f16a04e035885e0e31"
     algosdk: ^1.15.0
     axios: ^0.27.2
     dotenv: ^16.0.0
@@ -1747,11 +1766,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xbacked-dao/xbacked-contracts@npm:1.0.5":
-  version: 1.0.5
-  resolution: "@xbacked-dao/xbacked-contracts@npm:1.0.5"
+"@xbacked-dao/xbacked-contracts@npm:1.0.6":
+  version: 1.0.6
+  resolution: "@xbacked-dao/xbacked-contracts@npm:1.0.6"
   dependencies:
-    "@reach-sh/stdlib": 0.1.13-rc.3
+    "@reach-sh/stdlib": 0.1.13-rc.0
     algosdk: ^1.12.0
     await-timeout: ^1.1.1
     bignumber.js: ^9.0.1
@@ -1763,26 +1782,26 @@ __metadata:
     yargs: ^17.3.1
   peerDependencies:
     "@reach-sh/stdlib": 0.1.13-rc.0
-  checksum: 913730bd26f08d0d3a06ea65f9088d81c36ee592f132e499c8d8ba18d854e9b8e0258dc557e6073e4c031cc1f212783298373e4545d88239388e679b4e503f91
+  checksum: fdb49266d43c68177f6cd197691968f28c4dce91c3b8b34e0dfc029b41e278f645a6dc1c5bd7c9245f5e754447fc2935fb9f4a5b77fa22ba7aa9c40acdb61f87
   languageName: node
   linkType: hard
 
-"@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#f58b3620aa1e0ad2d254cb2587bfcf8d41074bc7":
+"@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#b0480ebd425cc1cb91b337f16a04e035885e0e31":
   version: 1.0.4
-  resolution: "@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#commit=f58b3620aa1e0ad2d254cb2587bfcf8d41074bc7"
+  resolution: "@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#commit=b0480ebd425cc1cb91b337f16a04e035885e0e31"
   dependencies:
     "@babel/types": ^7.16.0
     "@randlabs/myalgo-connect": ^1.1.1
     "@reach-sh/stdlib": 0.1.13-rc.3
     "@types/jsdom": ^16.2.13
-    "@xbacked-dao/xbacked-contracts": 1.0.5
+    "@xbacked-dao/xbacked-contracts": 1.0.6
     algosdk: ^2.0.0
     awesome-typescript-loader: ^5.2.1
     aws-sdk: ^2.1226.0
     axios: ^0.26.0
     dotenv: ^16.0.0
     jest: ^27.3.1
-  checksum: 2755a12e5763595ef914a12a610af19cc99500c08ef78e5469f814451ac61b14b5248c611cd73b9458407e58e10fe09e4a64c5add90cfd34c8bc6dfd7d16798f
+  checksum: cbe6912e27dd18faa78e9dc25e87af910d9aab176c26b1ab80ca036a637a90b58b0f0e4323e6b57f08de0adf120d961e2449dc4372c0676b506cd939272871d9
   languageName: node
   linkType: hard
 
