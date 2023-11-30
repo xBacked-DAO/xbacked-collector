@@ -11,6 +11,8 @@ export class VaultContractSource {
   public lastState: VaultReturnParams;
   protected z_p_f_vault_asa: boolean;
   protected large_cp_vault_asa: boolean
+  protected new_algo_vault:boolean
+  protected new_asa_vault:boolean
 
   constructor(
     vaultName: string,
@@ -18,6 +20,8 @@ export class VaultContractSource {
     vaultObj: any,
     z_p_f_vault_asa = false,
     large_cp_vault_asa = false,
+    new_algo_vault = false,
+    new_asa_vault = false
   ) {
     this.vaultName = vaultName;
     this.acc = acc;
@@ -26,16 +30,20 @@ export class VaultContractSource {
     this.asaDecimals = vaultObj.assetDecimals || null;
     this.z_p_f_vault_asa = z_p_f_vault_asa;
     this.large_cp_vault_asa = large_cp_vault_asa;
+    this.new_asa_vault = new_asa_vault;
+    this.new_algo_vault = new_algo_vault;
     const initParams = this.asaDecimals
       ? {
           id: this.vaultId,
           asaVault: {
             decimals: this.asaDecimals,
             z_p_f_vault_asa: this.z_p_f_vault_asa,
-            large_cp_vault_asa: this.large_cp_vault_asa
+            large_cp_vault_asa: this.large_cp_vault_asa,
+            new_asa_vault: this.new_asa_vault,
+
           },
         }
-      : { id: this.vaultId };
+      : { id: this.vaultId, new_algo_vault: this.new_algo_vault };
 
     this.vault = new Vault(initParams);
     this.update();

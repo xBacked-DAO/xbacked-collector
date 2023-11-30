@@ -1745,7 +1745,7 @@ __metadata:
     "@types/node-cron": ^3.0.1
     "@typescript-eslint/eslint-plugin": ~5.14
     "@typescript-eslint/parser": ~5.14
-    "@xbacked-dao/xbacked-sdk": "https://github.com//xBacked-DAO/xbacked-sdk.git#b0480ebd425cc1cb91b337f16a04e035885e0e31"
+    "@xbacked-dao/xbacked-sdk": "https://github.com//xBacked-DAO/xbacked-sdk.git#dd46c4ea426027db0a0436dc95e418d02c279df6"
     algosdk: ^1.15.0
     axios: ^0.27.2
     dotenv: ^16.0.0
@@ -1766,9 +1766,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xbacked-dao/xbacked-contracts@npm:1.0.6":
-  version: 1.0.6
-  resolution: "@xbacked-dao/xbacked-contracts@npm:1.0.6"
+"@xbacked-dao/xbacked-contracts@npm:1.1.0":
+  version: 1.1.0
+  resolution: "@xbacked-dao/xbacked-contracts@npm:1.1.0"
   dependencies:
     "@reach-sh/stdlib": 0.1.13-rc.0
     algosdk: ^1.12.0
@@ -1782,26 +1782,26 @@ __metadata:
     yargs: ^17.3.1
   peerDependencies:
     "@reach-sh/stdlib": 0.1.13-rc.0
-  checksum: fdb49266d43c68177f6cd197691968f28c4dce91c3b8b34e0dfc029b41e278f645a6dc1c5bd7c9245f5e754447fc2935fb9f4a5b77fa22ba7aa9c40acdb61f87
+  checksum: 10269cbd45de83bd87639890f9df7c6c093f75272ae4bc32c48d374c1a40abb00c2d648686372ba8c607f6061f51cb343ef2ea12087dc9a4dd4d46d1944ee1f3
   languageName: node
   linkType: hard
 
-"@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#b0480ebd425cc1cb91b337f16a04e035885e0e31":
+"@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#dd46c4ea426027db0a0436dc95e418d02c279df6":
   version: 1.0.4
-  resolution: "@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#commit=b0480ebd425cc1cb91b337f16a04e035885e0e31"
+  resolution: "@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#commit=dd46c4ea426027db0a0436dc95e418d02c279df6"
   dependencies:
     "@babel/types": ^7.16.0
     "@randlabs/myalgo-connect": ^1.1.1
     "@reach-sh/stdlib": 0.1.13-rc.3
     "@types/jsdom": ^16.2.13
-    "@xbacked-dao/xbacked-contracts": 1.0.6
+    "@xbacked-dao/xbacked-contracts": 1.1.0
     algosdk: ^2.0.0
     awesome-typescript-loader: ^5.2.1
     aws-sdk: ^2.1226.0
     axios: ^0.26.0
     dotenv: ^16.0.0
     jest: ^27.3.1
-  checksum: cbe6912e27dd18faa78e9dc25e87af910d9aab176c26b1ab80ca036a637a90b58b0f0e4323e6b57f08de0adf120d961e2449dc4372c0676b506cd939272871d9
+  checksum: 04ba89b81dc238f114b48c15e1ed006a20afafe0345671aa6fb1c3a6c0b78ff2f84e32bbd874c1bab8b044f42bccdb579aa052c8606811c329daf72ba2b62c63
   languageName: node
   linkType: hard
 

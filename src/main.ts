@@ -92,6 +92,76 @@ dotenv.config();
   vaultContractSources.push(goEthUsdContract);
 
 
+    const newAlgoUsdContract = new VaultContractSourceWithAlerts(
+      'ALGO/xUSD',
+      account,
+      deployedVaults ? deployedVaults.newAlgo : 0,
+      false,
+      false,
+      true,
+      false
+    );
+    vaultContractSources.push(newAlgoUsdContract);
+
+    const newGalgoUsdContract = new VaultContractSourceWithAlerts(
+      'gAlgo/xUSD',
+      account,
+      deployedVaults ? deployedVaults.newGAlgo : 0,
+      false,
+      false,
+      false,
+      true,
+    );
+    vaultContractSources.push(newGalgoUsdContract);
+
+    const newGold$UsdContract = new VaultContractSourceWithAlerts(
+      'gold$/xUSD',
+      account,
+      deployedVaults ? deployedVaults.newMeldGold : 0,
+      false,
+      false,
+      false,
+      true
+    );
+    vaultContractSources.push(newGold$UsdContract);
+
+    const newSilver$UsdContract = new VaultContractSourceWithAlerts(
+      'silver$/xUSD',
+      account,
+      deployedVaults ? deployedVaults.newSilver$ : 0,
+      false,
+      false,
+      false,
+      true
+
+    );
+    vaultContractSources.push(newSilver$UsdContract);
+
+    const newGoBtcUsdContract = new VaultContractSourceWithAlerts(
+      'goBTC/xUSD',
+      account,
+      deployedVaults ? deployedVaults.newGoBtc : 0,
+      false,
+      false,
+      false,
+      true
+    );
+    vaultContractSources.push(newGoBtcUsdContract);
+
+    const newGoEthUsdContract = new VaultContractSourceWithAlerts(
+      'goETH/xUSD',
+      account,
+      deployedVaults ? deployedVaults.newGoEth : 0,
+      false,
+      false,
+      false,
+      true
+    );
+    vaultContractSources.push(newGoEthUsdContract);
+
+
+
+
   // const goBtcUsdContract = new VaultContractSourceWithAlerts("goBTC/xUSD", account, deployedVaults ? deployedVaults.gobtc : 0);
   // vaultContractSources.push(goBtcUsdContract);
   // const goEthUsdContract = new VaultContractSourceWithAlerts("goETH/xUSD", account, deployedVaults ? deployedVaults.goeth : 0);

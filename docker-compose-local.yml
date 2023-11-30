@@ -16,7 +16,7 @@ services:
     env_file:
       - .env
     entrypoint:
-      - /bin/agent
+      - /bin/grafana-agent
       - -config.file=/etc/agent-config/agent.yaml
       - -config.expand-env=true
       - -server.http.address=0.0.0.0:12345

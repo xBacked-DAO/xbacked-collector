@@ -48,7 +48,7 @@
     "typescript": "~4.6"
   },
   "dependencies": {
-    "@xbacked-dao/xbacked-sdk": "https://github.com//xBacked-DAO/xbacked-sdk.git#b0480ebd425cc1cb91b337f16a04e035885e0e31",
+    "@xbacked-dao/xbacked-sdk": "https://github.com//xBacked-DAO/xbacked-sdk.git#dd46c4ea426027db0a0436dc95e418d02c279df6",
     "algosdk": "^1.15.0",
     "axios": "^0.27.2",
     "dotenv": "^16.0.0",
