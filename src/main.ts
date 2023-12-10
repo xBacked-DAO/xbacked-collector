@@ -159,6 +159,17 @@ dotenv.config();
     );
     vaultContractSources.push(newGoEthUsdContract);
 
+  const newSolUsdContract = new VaultContractSourceWithAlerts(
+    'wSol/xUSD',
+    account,
+    deployedVaults ? deployedVaults.wrappedSol : 0,
+    false,
+    false,
+    false,
+    true,
+  );
+  vaultContractSources.push(newSolUsdContract);
+
 
 
 
