@@ -159,6 +159,17 @@ dotenv.config();
     );
     vaultContractSources.push(newGoEthUsdContract);
 
+    const newAvaxContract = new VaultContractSourceWithAlerts(
+      'wAvax/xUSD',
+      account,
+      deployedVaults ? deployedVaults.wrappedAvax : 0,
+      false,
+      false,
+      false,
+      true,
+    );
+  vaultContractSources.push(newAvaxContract);
+
   const newSolUsdContract = new VaultContractSourceWithAlerts(
     'wSol/xUSD',
     account,
@@ -169,6 +180,17 @@ dotenv.config();
     true,
   );
   vaultContractSources.push(newSolUsdContract);
+
+  const newMAlgoContract = new VaultContractSourceWithAlerts(
+    'mAlgo/xUSD',
+    account,
+    deployedVaults ? deployedVaults.mAlgo : 0,
+    false,
+    false,
+    false,
+    true,
+  );
+  vaultContractSources.push(newMAlgoContract);
 
 
 
@@ -193,12 +215,16 @@ dotenv.config();
   });
 
   // Create metrics for the grafana agent to consume
-  createVaultMetrics(algoUsdContract, 'vault_algo_usd');
-  createVaultMetrics(gAlgoUsdContract, 'vault_galgo_usd');
-  createVaultMetrics(gold$UsdContract, 'vault_gold_dollar_usd');
-  createVaultMetrics(silver$UsdContract, 'vault_silver_dollar_usd');
-  createVaultMetrics(goBtcUsdContract, 'vault_gobtc_usd');
-  createVaultMetrics(goEthUsdContract, 'vault_goeth_usd');
+  createVaultMetrics(newAlgoUsdContract, 'vault_algo_usd');
+  createVaultMetrics(newGalgoUsdContract, 'vault_galgo_usd');
+  createVaultMetrics(newGold$UsdContract, 'vault_gold_dollar_usd');
+  createVaultMetrics(newSilver$UsdContract, 'vault_silver_dollar_usd');
+  createVaultMetrics(newGoBtcUsdContract, 'vault_gobtc_usd');
+  createVaultMetrics(newGoEthUsdContract, 'vault_goeth_usd');
+  createVaultMetrics(newSolUsdContract, 'vault_sol_usd');
+  createVaultMetrics(newMAlgoContract, 'vault_mAlgo_usd');
+  createVaultMetrics(newAvaxContract, 'vault_avax_usd');
+
   // createVaultMetrics(dAlgoUsdContract, 'vault_dAlgo_usd');
 
   createTVLMetric(collector.getTVL, 'tvl');
