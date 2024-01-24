@@ -60,36 +60,6 @@ dotenv.config();
   );
   vaultContractSources.push(algoUsdContract);
 
-  const gAlgoUsdContract = new VaultContractSourceWithAlerts(
-    'gAlgo/xUSD',
-    account,
-    deployedVaults ? deployedVaults.gAlgo : 0,
-  );
-  vaultContractSources.push(gAlgoUsdContract);
-
-  const gold$UsdContract = new VaultContractSourceWithAlerts("gold$/xUSD", account, deployedVaults ? deployedVaults.meldGold : 0, true);
-  vaultContractSources.push(gold$UsdContract);
-
-  const silver$UsdContract = new VaultContractSourceWithAlerts(
-    'silver$/xUSD',
-    account,
-    deployedVaults ? deployedVaults.silver$ : 0,
-    true
-  );
-  vaultContractSources.push(silver$UsdContract);
-
-
-  const goBtcUsdContract = new VaultContractSourceWithAlerts('goBTC/xUSD', account, deployedVaults ? deployedVaults.goBtc: 0, false, true);
-  vaultContractSources.push(goBtcUsdContract);
-
-  const goEthUsdContract = new VaultContractSourceWithAlerts(
-    'goETH/xUSD',
-    account,
-    deployedVaults ? deployedVaults.goEth : 0,
-    false,
-    true,
-  );
-  vaultContractSources.push(goEthUsdContract);
 
 
     const newAlgoUsdContract = new VaultContractSourceWithAlerts(
@@ -192,6 +162,17 @@ dotenv.config();
   );
   vaultContractSources.push(newMAlgoContract);
 
+  const linkUsdContract = new VaultContractSourceWithAlerts(
+    'LINK/xUSD',
+    account,
+    deployedVaults ? deployedVaults.link : 0,
+    false,
+    false,
+    false,
+    true,
+  );
+  vaultContractSources.push(linkUsdContract);
+
 
 
 
@@ -224,6 +205,7 @@ dotenv.config();
   createVaultMetrics(newSolUsdContract, 'vault_sol_usd');
   createVaultMetrics(newMAlgoContract, 'vault_mAlgo_usd');
   createVaultMetrics(newAvaxContract, 'vault_avax_usd');
+  createVaultMetrics(linkUsdContract, 'vault_link_usd');
 
   // createVaultMetrics(dAlgoUsdContract, 'vault_dAlgo_usd');
 
