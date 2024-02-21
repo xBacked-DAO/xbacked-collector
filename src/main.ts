@@ -173,6 +173,17 @@ dotenv.config();
   );
   vaultContractSources.push(linkUsdContract);
 
+  const coopUsdContract = new VaultContractSourceWithAlerts(
+    'COOP/xUSD',
+    account,
+    deployedVaults ? deployedVaults.coop : 0,
+    false,
+    false,
+    false,
+    true,
+  );
+  vaultContractSources.push(coopUsdContract);
+
 
 
 
@@ -206,6 +217,7 @@ dotenv.config();
   createVaultMetrics(newMAlgoContract, 'vault_mAlgo_usd');
   createVaultMetrics(newAvaxContract, 'vault_avax_usd');
   createVaultMetrics(linkUsdContract, 'vault_link_usd');
+  createVaultMetrics(coopUsdContract, 'vault_coop_usd');
 
   // createVaultMetrics(dAlgoUsdContract, 'vault_dAlgo_usd');
 

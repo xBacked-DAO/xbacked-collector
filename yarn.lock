@@ -1434,17 +1434,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jsdom@npm:^16.2.13":
-  version: 16.2.15
-  resolution: "@types/jsdom@npm:16.2.15"
-  dependencies:
-    "@types/node": "*"
-    "@types/parse5": ^6.0.3
-    "@types/tough-cookie": "*"
-  checksum: e038335321bef42ebf220aaf597e186e2eec8de6107ce7a70de1c046a84c1fbb42d454e195a20383a6870b18c7ef6fa6b73812a626f88a4a2ef1f711d2e2e13c
-  languageName: node
-  linkType: hard
-
 "@types/json-schema@npm:^7.0.9":
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
@@ -1477,13 +1466,6 @@ __metadata:
   version: 16.11.68
   resolution: "@types/node@npm:16.11.68"
   checksum: a35293b6b8867e10ab9e10b6cd5f0e4224a86256d5ef102581dcb9f79f35f255ad87443e8584ddf8dce1229ee28885c58187e41822cf8d1e82495e7897c47c3f
-  languageName: node
-  linkType: hard
-
-"@types/parse5@npm:^6.0.3":
-  version: 6.0.3
-  resolution: "@types/parse5@npm:6.0.3"
-  checksum: ddb59ee4144af5dfcc508a8dcf32f37879d11e12559561e65788756b95b33e6f03ea027d88e1f5408f9b7bfb656bf630ace31a2169edf44151daaf8dd58df1b7
   languageName: node
   linkType: hard
 
@@ -1529,13 +1511,6 @@ __metadata:
   version: 2.0.1
   resolution: "@types/stack-utils@npm:2.0.1"
   checksum: 205fdbe3326b7046d7eaf5e494d8084f2659086a266f3f9cf00bccc549c8e36e407f88168ad4383c8b07099957ad669f75f2532ed4bc70be2b037330f7bae019
-  languageName: node
-  linkType: hard
-
-"@types/tough-cookie@npm:*":
-  version: 4.0.2
-  resolution: "@types/tough-cookie@npm:4.0.2"
-  checksum: e055556ffdaa39ad85ede0af192c93f93f986f4bd9e9426efdc2948e3e2632db3a4a584d4937dbf6d7620527419bc99e6182d3daf2b08685e710f2eda5291905
   languageName: node
   linkType: hard
 
@@ -1745,7 +1720,7 @@ __metadata:
     "@types/node-cron": ^3.0.1
     "@typescript-eslint/eslint-plugin": ~5.14
     "@typescript-eslint/parser": ~5.14
-    "@xbacked-dao/xbacked-sdk": "https://github.com//xBacked-DAO/xbacked-sdk.git#6ffadc6cbe6d026efc01e2f96eec06a108c12c51"
+    "@xbacked-dao/xbacked-sdk": "https://github.com//xBacked-DAO/xbacked-sdk.git#8038255476686c4a54ae5a8b67f0577e53352fb7"
     algosdk: ^1.15.0
     axios: ^0.27.2
     dotenv: ^16.0.0
@@ -1786,22 +1761,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#6ffadc6cbe6d026efc01e2f96eec06a108c12c51":
-  version: 1.0.5
-  resolution: "@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#commit=6ffadc6cbe6d026efc01e2f96eec06a108c12c51"
+"@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#8038255476686c4a54ae5a8b67f0577e53352fb7":
+  version: 1.0.6
+  resolution: "@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#commit=8038255476686c4a54ae5a8b67f0577e53352fb7"
   dependencies:
     "@babel/types": ^7.16.0
     "@randlabs/myalgo-connect": ^1.1.1
     "@reach-sh/stdlib": 0.1.13-rc.3
-    "@types/jsdom": ^16.2.13
     "@xbacked-dao/xbacked-contracts": 1.1.0
     algosdk: ^2.0.0
     awesome-typescript-loader: ^5.2.1
     aws-sdk: ^2.1226.0
     axios: ^0.26.0
     dotenv: ^16.0.0
-    jest: ^27.3.1
-  checksum: d86e93fcad6419f003d114e91f5b7a21011235853858f355047eadac76f3e56a8d89091a1ee48f815cb25581fc9f2132ac58d1a020a813d8aa352469280e02a9
+  checksum: 5a5fa048e4e479bd2b04d17fcca5366232b040ef7ffc8f5e16f887e515cd6c0a33f430d0037789b0d56f3fda81fd32a01757c7e64b52878931a7d65eb2b3c23e
   languageName: node
   linkType: hard
 
@@ -5203,7 +5176,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^27.3.1, jest@npm:~27.5":
+"jest@npm:~27.5":
   version: 27.5.1
   resolution: "jest@npm:27.5.1"
   dependencies:
