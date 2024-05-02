@@ -184,6 +184,16 @@ dotenv.config();
   );
   vaultContractSources.push(coopUsdContract);
 
+  const chipsUSDContract = new VaultContractSourceWithAlerts(
+    'CHIPS/xUSD',
+    account,
+    deployedVaults ? deployedVaults.chips : 0,
+    false,
+    false,
+    false,
+    true,
+  );
+  vaultContractSources.push(chipsUSDContract);
 
 
 
@@ -218,6 +228,7 @@ dotenv.config();
   createVaultMetrics(newAvaxContract, 'vault_avax_usd');
   createVaultMetrics(linkUsdContract, 'vault_link_usd');
   createVaultMetrics(coopUsdContract, 'vault_coop_usd');
+  createVaultMetrics(chipsUSDContract, 'vault_chips_usd');
 
   // createVaultMetrics(dAlgoUsdContract, 'vault_dAlgo_usd');
 

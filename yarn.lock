@@ -1720,7 +1720,7 @@ __metadata:
     "@types/node-cron": ^3.0.1
     "@typescript-eslint/eslint-plugin": ~5.14
     "@typescript-eslint/parser": ~5.14
-    "@xbacked-dao/xbacked-sdk": "https://github.com//xBacked-DAO/xbacked-sdk.git#8038255476686c4a54ae5a8b67f0577e53352fb7"
+    "@xbacked-dao/xbacked-sdk": "https://github.com//xBacked-DAO/xbacked-sdk.git#80cf10fb58bc3e7a41ae3f7e97abdeb77b606b25"
     algosdk: ^1.15.0
     axios: ^0.27.2
     dotenv: ^16.0.0
@@ -1761,9 +1761,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#8038255476686c4a54ae5a8b67f0577e53352fb7":
+"@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#80cf10fb58bc3e7a41ae3f7e97abdeb77b606b25":
   version: 1.0.6
-  resolution: "@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#commit=8038255476686c4a54ae5a8b67f0577e53352fb7"
+  resolution: "@xbacked-dao/xbacked-sdk@https://github.com//xBacked-DAO/xbacked-sdk.git#commit=80cf10fb58bc3e7a41ae3f7e97abdeb77b606b25"
   dependencies:
     "@babel/types": ^7.16.0
     "@randlabs/myalgo-connect": ^1.1.1
@@ -1774,7 +1774,7 @@ __metadata:
     aws-sdk: ^2.1226.0
     axios: ^0.26.0
     dotenv: ^16.0.0
-  checksum: 5a5fa048e4e479bd2b04d17fcca5366232b040ef7ffc8f5e16f887e515cd6c0a33f430d0037789b0d56f3fda81fd32a01757c7e64b52878931a7d65eb2b3c23e
+  checksum: 5c22f0d8977a0e9efc54004ba2afafc11154f51c07af776e6dac2cb8fc8a177a777a59ae65516a825215711ff52af5dc009b46796af2d7ec78a8b3dd3a956cab
   languageName: node
   linkType: hard
 
