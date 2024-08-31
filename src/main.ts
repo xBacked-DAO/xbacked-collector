@@ -194,6 +194,26 @@ dotenv.config();
     true,
   );
   vaultContractSources.push(chipsUSDContract);
+  const eursUSDContract = new VaultContractSourceWithAlerts(
+    'EURS/xUSD',
+    account,
+    deployedVaults ? deployedVaults.eurs : 0,
+    false,
+    false,
+    false,
+    true,
+  );
+  vaultContractSources.push(eursUSDContract);
+  const finiteUSDContract = new VaultContractSourceWithAlerts(
+    'FINITE/xUSD',
+    account,
+    deployedVaults ? deployedVaults.finite : 0,
+    false,
+    false,
+    false,
+    true,
+  );
+  vaultContractSources.push(finiteUSDContract);
 
 
 
@@ -229,6 +249,8 @@ dotenv.config();
   createVaultMetrics(linkUsdContract, 'vault_link_usd');
   createVaultMetrics(coopUsdContract, 'vault_coop_usd');
   createVaultMetrics(chipsUSDContract, 'vault_chips_usd');
+  createVaultMetrics(eursUSDContract, 'vault_eurs_usd');
+  createVaultMetrics(finiteUSDContract, 'vault_finite_usd');
 
   // createVaultMetrics(dAlgoUsdContract, 'vault_dAlgo_usd');
 
